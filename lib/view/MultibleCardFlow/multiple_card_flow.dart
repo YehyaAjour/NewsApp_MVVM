@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/view/CustomWidget/custom_widget.dart';
 import 'package:newsapp/view/HomeScreen/home_screen.dart';
 
 class MultipleCardFlowScreen extends StatelessWidget {

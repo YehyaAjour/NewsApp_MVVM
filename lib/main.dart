@@ -6,18 +6,16 @@ import 'package:newsapp/view/HomeScreen/home_screen.dart';
 import 'package:newsapp/view_model/AppCubit/app_cubit.dart';
 import 'package:newsapp/view_model/AppStates/app_states.dart';
 import 'package:newsapp/view_model/bloc_observer.dart';
+
 //baseurl="https://newsapi.org/"
 //methodUrl='v2/top-headlines?'
 //queries='country=us&apiKey=d4026a9324cf4415a67a049318928dad'
-Future<void> main()  async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
   BlocOverrides.runZoned(() {
     runApp(const MyApp());
-
   }, blocObserver: MyBlocObserver());
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -27,8 +25,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..getBusinessNew(),
-      child: BlocConsumer<AppCubit,AppStates>(
+      create: (BuildContext context) => AppCubit()
+        ..getGeneral()
+        ..getBusinessNew()
+        ..getEntertainment()
+        ..getHealth()
+        ..getScience()
+        ..getSport()
+        ..getTechnology(),
+      child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, state) {},
         builder: (BuildContext context, state) {
           return MaterialApp(
@@ -72,3 +77,50 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// CurvedNavigationBar(
+// height: 60,
+// animationDuration: Duration(milliseconds: 500),
+// items: [
+// Column(
+// children: [
+// SvgPicture.asset("assets/icons/education.svg",
+// height: 30, width: 30, semanticsLabel: 'Acme Logo'),
+// Text(
+// "المحفظين",
+// style: TextStyle(
+// color: Colors.black, fontWeight: FontWeight.bold),
+// )
+// ],
+// ),
+// Column(
+// children: [
+// SvgPicture.asset("assets/icons/crowd.svg",
+// height: 30, width: 30, semanticsLabel: 'yehya'),
+// Text(
+// "الحلقات",
+// style: TextStyle(
+// color: Colors.black, fontWeight: FontWeight.bold),
+// ),
+// ],
+// ),
+// Column(
+// children: [
+// SvgPicture.asset("assets/icons/reading.svg",
+// height: 30, width: 30, semanticsLabel: 'yehya'),
+// Text(
+// "الطلاب",
+// style: TextStyle(
+// color: Colors.black, fontWeight: FontWeight.bold),
+// )
+// ],
+// ),
+// ],
+// backgroundColor: Colors.white,
+// color: Colors.green[400],
+// buttonBackgroundColor: Colors.transparent,
+// index: AppCubit.get(context).currentIndex,
+// onTap: (int value) {
+// AppCubit.get(context).changeIndex(value);
+// },
+// ),

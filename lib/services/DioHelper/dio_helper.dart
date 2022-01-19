@@ -29,6 +29,7 @@ class DioHelper {
     } on Exception catch (e) {
       print(e.toString());
       return null;
+
     }
   }
   //
