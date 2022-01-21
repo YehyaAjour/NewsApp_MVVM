@@ -1,12 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class NewsItemWidget extends StatelessWidget {
+  final Color listColor;
+  final String listCategory;
   final dynamic article;
   final titleStyle = const TextStyle(
       color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16.0);
   final VoidCallback onSwipe;
 
-  const NewsItemWidget({Key key, this.article, this.onSwipe}) : super(key: key);
+  const NewsItemWidget(
+      {Key key, this.article, this.onSwipe, this.listColor, this.listCategory})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,6 @@ class NewsItemWidget extends StatelessWidget {
           onSwipe();
         }
       },
-
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -26,9 +30,13 @@ class NewsItemWidget extends StatelessWidget {
               flex: 2,
               child: NewsWidget(
                 article: article,
+                listColor: listColor,
+                listCategory: listCategory,
               ),
             ),
-            const SizedBox(height:30 ,),
+            const SizedBox(
+              height: 30,
+            ),
             Expanded(
                 flex: 5,
                 child: ReviewNewsWidget(
@@ -42,33 +50,41 @@ class NewsItemWidget extends StatelessWidget {
 }
 
 class NewsWidget extends StatelessWidget {
+  final Color listColor;
+  final String listCategory;
   final dynamic article;
   final titleStyle = const TextStyle(
       color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0);
 
-  const NewsWidget({Key key, @required this.article}) : super(key: key);
+  const NewsWidget(
+      {Key key,
+      @required this.article,
+      @required this.listColor,
+      this.listCategory})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Hero(
       tag: 'news_${article['urlToImage']}',
       child: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer ,
-        shape: RoundedRectangleBorder(
-
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 20,
-        child: Stack(
-          children: [
-            Positioned.fill(
-                child: Image.network(
-                  '${article['urlToImage']}',
-                  fit: BoxFit.cover,
-                )),
-          ],
-        ),
-      ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 20,
+          child: Container(
+            color: const Color(0xffffc240),
+            child: Center(
+              child: Text(
+                listCategory,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30),
+              ),
+            ),
+          )),
     );
   }
 }
@@ -85,9 +101,8 @@ class ReviewNewsWidget extends StatelessWidget {
     return Hero(
       tag: 'news_${article['title']}',
       child: Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer ,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           shape: RoundedRectangleBorder(
-
             borderRadius: BorderRadius.circular(20),
           ),
           color: Colors.white,
@@ -152,11 +167,11 @@ class ReviewNewsWidget extends StatelessWidget {
                   height: 10,
                 ),
                 Expanded(
-                  child: Image.network(
-                    '${article['urlToImage']}',
-                    fit: BoxFit.cover,
-                  ),
-                )
+                  child: Image(
+                      fit: BoxFit.cover,
+                      image: CachedNetworkImageProvider(
+                          '${article['urlToImage']}')),
+                ),
               ],
             ),
           )),
@@ -165,8 +180,7 @@ class ReviewNewsWidget extends StatelessWidget {
 }
 
 class MySearchTextField extends AnimatedWidget {
-   MySearchTextField(Animation<double> animation)
-      : super(listenable: animation);
+  MySearchTextField(Animation<double> animation) : super(listenable: animation);
 
   Animation<double> get animation => listenable;
 
@@ -183,25 +197,27 @@ class MySearchTextField extends AnimatedWidget {
           color: const Color(0xff8E9BB5),
           borderRadius: BorderRadius.circular(20),
         ),
-        child: value>0.4?Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            children: [
-              Icon(
-                Icons.search,
-                color: Colors.grey[800],
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Expanded(
-                  child: Text(
-                    'البحث ',
-                    style: TextStyle(color: Colors.grey[800]),
-                  )),
-            ],
-          ),
-        ):const SizedBox.shrink(),
+        child: value > 0.4
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.search,
+                      color: Colors.grey[800],
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                        child: Text(
+                      'البحث ',
+                      style: TextStyle(color: Colors.grey[800]),
+                    )),
+                  ],
+                ),
+              )
+            : const SizedBox.shrink(),
       ),
     );
   }

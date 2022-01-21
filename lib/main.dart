@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/services/CacheHelper/cash_helper.dart';
 import 'package:newsapp/services/DioHelper/dio_helper.dart';
 import 'package:newsapp/view/HomeScreen/home_screen.dart';
+import 'package:newsapp/view/SplashScreen/splash_screen.dart';
 import 'package:newsapp/view_model/AppCubit/app_cubit.dart';
 import 'package:newsapp/view_model/AppStates/app_states.dart';
 import 'package:newsapp/view_model/bloc_observer.dart';
@@ -44,33 +45,11 @@ class MyApp extends StatelessWidget {
                 child: child,
               );
             },
-            // theme: ThemeData(
-            //     //scaffoldBackgroundColor: Colors.white,
-            //     appBarTheme: const AppBarTheme(
-            //         titleTextStyle: TextStyle(
-            //             color: Colors.white,
-            //             fontSize: 25,
-            //             fontWeight: FontWeight.bold),
-            //         backgroundColor: Color(0xff3EB489),
-            //         elevation: 0,
-            //         backwardsCompatibility: false,
-            //         //for statusBar
-            //         systemOverlayStyle: SystemUiOverlayStyle(
-            //             statusBarColor: Color(0xff3EB489),
-            //             statusBarIconBrightness: Brightness.light)),
-            //     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            //       backgroundColor: Color(0xff3EB489),
-            //       type: BottomNavigationBarType.fixed,
-            //       unselectedItemColor: Colors.black,
-            //       selectedItemColor: Colors.white,
-            //       selectedLabelStyle: TextStyle(fontSize: 18),
-            //       unselectedLabelStyle: TextStyle(fontSize: 18),
-            //
-            //
-            //
-            //
-            //     )),
-            home: HomeScreen(),
+           initialRoute: '/',
+            routes: {
+              '/':(context) => SplashScreen(),
+            },
+
           );
         },
       ),
@@ -78,49 +57,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// CurvedNavigationBar(
-// height: 60,
-// animationDuration: Duration(milliseconds: 500),
-// items: [
-// Column(
-// children: [
-// SvgPicture.asset("assets/icons/education.svg",
-// height: 30, width: 30, semanticsLabel: 'Acme Logo'),
-// Text(
-// "المحفظين",
-// style: TextStyle(
-// color: Colors.black, fontWeight: FontWeight.bold),
-// )
-// ],
-// ),
-// Column(
-// children: [
-// SvgPicture.asset("assets/icons/crowd.svg",
-// height: 30, width: 30, semanticsLabel: 'yehya'),
-// Text(
-// "الحلقات",
-// style: TextStyle(
-// color: Colors.black, fontWeight: FontWeight.bold),
-// ),
-// ],
-// ),
-// Column(
-// children: [
-// SvgPicture.asset("assets/icons/reading.svg",
-// height: 30, width: 30, semanticsLabel: 'yehya'),
-// Text(
-// "الطلاب",
-// style: TextStyle(
-// color: Colors.black, fontWeight: FontWeight.bold),
-// )
-// ],
-// ),
-// ],
-// backgroundColor: Colors.white,
-// color: Colors.green[400],
-// buttonBackgroundColor: Colors.transparent,
-// index: AppCubit.get(context).currentIndex,
-// onTap: (int value) {
-// AppCubit.get(context).changeIndex(value);
-// },
-// ),

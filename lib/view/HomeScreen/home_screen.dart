@@ -9,13 +9,7 @@ import 'package:newsapp/view_model/AppStates/app_states.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
 
-const backgroundGradiant = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color(0xff4b6089),
-      Color(0xffA0D7B4),
-    ]);
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -74,9 +68,35 @@ class _HomeScreenState extends State<HomeScreen>
       builder: (BuildContext context, state) {
        AppCubit cubit=AppCubit.get(context);
        List<dynamic>homeNews=[
-         cubit.generalList[0]
+         cubit.generalList[0],
+         cubit.businessList[0],
+         cubit.entertainmentList[0],
+         cubit.healthList[0],
+         cubit.scienceList[0],
+         cubit.sportsList[0],
+         cubit.technologyList[0],
        ];
+       List<Color> _listColor = [
+         Color(0xfffff2be),
+         Color(0xff93beb7),
+         Color(0xfff9e7f3),
+         Color(0xff84dcff),
+         Color(0xfff3f3f3),
+         Color(0xfffff2be),
+         Color(0xff93beb7),
 
+
+       ];
+       List<String> _categoryList = [
+         'عام',
+         'أعمال',
+         'ترفيه',
+         'صحة',
+         'علوم',
+         'رياضة',
+         'تكنولوجيا',
+
+       ];
         return Stack(
           children: [
 
@@ -88,26 +108,6 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             Scaffold(
-
-
-                // bottomNavigationBar: CurvedNavigationBar(
-                //   height: 30,
-                //   animationDuration: Duration(milliseconds: 500),
-                //   items: AppCubit.get(context).bottomItem,
-                //   onTap: (value) {
-                //     AppCubit.get(context).changeIndexBottomNav(value);
-                //   },
-                //   index: AppCubit.get(context).currentIndex,
-                //
-                // ),
-                // bottomNavigationBar: BottomNavigationBar(
-                //   type: BottomNavigationBarType.fixed,
-                //   onTap: (value) {
-                //     AppCubit.get(context).changeIndexBottomNav(value);
-                //   },
-                //   currentIndex: AppCubit.get(context).currentIndex,
-                //   items: AppCubit.get(context).bottomItem,
-                // ),
                 backgroundColor: Colors.transparent,
                 body: SafeArea(
                   child: Column(
@@ -116,8 +116,9 @@ class _HomeScreenState extends State<HomeScreen>
 
                       Expanded(
                         child: ConditionalBuilder(
-                          condition: state is! GetBusinessNewsErrorState &&
-                              state is! GetBusinessNewsLoadingState ,
+                          condition: state is! GetGeneralNewsLoadingState&& state is! GetBusinessNewsLoadingState
+                      && state is! GetEntertainmentNewsLoadingState && state is! GetHealthNewsLoadingState &&
+                  state is! GetScienceNewsLoadingState && state is! GetSportNewsLoadingState && state is! GetTechnologyNewsLoadingState,
                           builder: (context) {
                             return PageView.builder(
 
@@ -142,6 +143,8 @@ class _HomeScreenState extends State<HomeScreen>
                                     opacity: (1 - opacity),
                                     child: NewsItemWidget(
                                         article: homeNews[index],
+                                        listColor: _listColor[index],
+                                        listCategory:_categoryList[index],
                                         onSwipe: () {
                                           _onSwipe(homeNews[index]);
                                         }),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/view/CustomWidget/custom_widget.dart';
-import 'package:newsapp/view/HomeScreen/home_screen.dart';
 
 class MultipleCardFlowScreen extends StatelessWidget {
   final dynamic article;
@@ -15,9 +14,9 @@ class MultipleCardFlowScreen extends StatelessWidget {
       color: Colors.transparent,
       child: Stack(
         children: [
-          Positioned.fill(
+          const Positioned.fill(
             child: DecoratedBox(
-              decoration: BoxDecoration(gradient: backgroundGradiant),
+              decoration: BoxDecoration(color: Colors.white),
             ),
           ),
           Scaffold(
