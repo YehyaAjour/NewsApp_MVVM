@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
         pageTransitionType: PageTransitionType.rightToLeftWithFade,
         animationDuration: const Duration(seconds: 3),
         duration: 3000,
-        backgroundColor:  const Color(0xffffc240),
+        backgroundColor:  const Color(0xffFFCB00),
       ),
     );
   }

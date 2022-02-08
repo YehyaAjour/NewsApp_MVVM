@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:newsapp/view/CustomWidget/custom_text.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class NewsItemWidget extends StatelessWidget {
-  final Color listColor;
-  final String listCategory;
   final dynamic article;
   final titleStyle = const TextStyle(
       color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16.0);
   final VoidCallback onSwipe;
 
-  const NewsItemWidget(
-      {Key key, this.article, this.onSwipe, this.listColor, this.listCategory})
-      : super(key: key);
+  const NewsItemWidget({Key key, this.article, this.onSwipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +22,27 @@ class NewsItemWidget extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
         child: Column(
           children: [
-            Expanded(
-              flex: 2,
+
+            Container(
+              height: 190,
+
               child: NewsWidget(
                 article: article,
-                listColor: listColor,
-                listCategory: listCategory,
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            Expanded(
-                flex: 5,
-                child: ReviewNewsWidget(
-                  article: article,
-                ))
+
+            // const SizedBox(
+            //   height: 30,
+            // ),
+            // Expanded(
+            //     flex: 5,
+            //     child: ReviewNewsWidget(
+            //       article: article,
+            //     ),
+            // ),
           ],
         ),
       ),
@@ -51,40 +52,80 @@ class NewsItemWidget extends StatelessWidget {
 
 class NewsWidget extends StatelessWidget {
   final Color listColor;
-  final String listCategory;
   final dynamic article;
   final titleStyle = const TextStyle(
       color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0);
 
-  const NewsWidget(
-      {Key key,
-      @required this.article,
-      @required this.listColor,
-      this.listCategory})
+  NewsWidget({Key key, @required this.article, @required this.listColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'news_${article['urlToImage']}',
-      child: Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 20,
-          child: Container(
-            color: const Color(0xffffc240),
-            child: Center(
-              child: Text(
-                listCategory,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
-              ),
+    return Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 20,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: ConditionalBuilder(
+              condition: article['urlToImage']!=null,
+              builder:(context) {
+                return  Image(
+                    fit: BoxFit.cover,
+                    image: CachedNetworkImageProvider('${article['urlToImage']}')
+                );
+              } ,
+              fallback: (context) {
+                  return Shimmer(
+                    child: Container(
+                      color: Colors.grey[500],
+                    ),
+                  );
+              },
             ),
-          )),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    CustomText( '${article['publishedAt']}',color: Colors.white,fontFamily: 'din',fontSize: 13,),
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(
+                        Icons.bookmark_border,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
+                Spacer(),
+                Row(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.grey,
+                      ),
+                      width: 250,
+                      height: 70,
+                      child:Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomText('${article['title']}',color: Colors.white,fontFamily: 'din',fontSize: 18,maxLines: 2,),
+                      ),
+
+
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

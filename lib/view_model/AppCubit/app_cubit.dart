@@ -16,7 +16,7 @@ class AppCubit extends Cubit<AppStates> {
 
   static AppCubit get(context) => BlocProvider.of(context);
 
-  int currentIndex = 0;
+  int tapBarCurrentIndex = 0;
   List<BottomNavigationBarItem> bottomItem = [
     const BottomNavigationBarItem(
       icon: Icon(Icons.home_sharp),
@@ -45,7 +45,6 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<Widget> listScreen=[
-    GeneralScreen(),
     BusinesScreen(),
     EntertainmentScreen(),
     HealthScreen(),
@@ -55,8 +54,8 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
 
-  void changeIndexBottomNav(int index) {
-    currentIndex = index;
+  void changeIndexTapBar(int index) {
+    tapBarCurrentIndex = index;
     emit(ChangeBottomNavState());
   }
 
@@ -77,7 +76,7 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.getData(url: 'v2/top-headlines/', queries: {
       'category': 'general',
       'language': 'ar',
-      'apiKey': 'a10204d2f1df4e2d9c61a071224b99be'
+      'apiKey': 'fea6b665b7e94b77afd2dada4cb7e983'
     }).then((value) {
       print(value.data);
       generalList = value.data['articles'];
@@ -94,7 +93,7 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.getData(url: 'v2/top-headlines/', queries: {
       'category': 'business',
       'language': 'ar',
-      'apiKey': 'a10204d2f1df4e2d9c61a071224b99be'
+      'apiKey': 'fea6b665b7e94b77afd2dada4cb7e983'
     }).then((value) {
       print(value.data);
       businessList = value.data['articles'];
@@ -112,7 +111,7 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.getData(url: 'v2/top-headlines/', queries: {
       'category': 'entertainment',
       'language': 'ar',
-      'apiKey': 'a10204d2f1df4e2d9c61a071224b99be'
+      'apiKey': 'fea6b665b7e94b77afd2dada4cb7e983'
     }).then((value) {
       print(value.data);
       entertainmentList = value.data['articles'];
@@ -130,7 +129,7 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.getData(url: 'v2/top-headlines/', queries: {
       'category': 'health',
       'language': 'ar',
-      'apiKey': 'a10204d2f1df4e2d9c61a071224b99be'
+      'apiKey': 'fea6b665b7e94b77afd2dada4cb7e983'
     }).then((value) {
       print(value.data);
       healthList = value.data['articles'];
@@ -148,7 +147,7 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.getData(url: 'v2/top-headlines/', queries: {
       'category': 'science',
       'language': 'ar',
-      'apiKey': 'a10204d2f1df4e2d9c61a071224b99be'
+      'apiKey': 'fea6b665b7e94b77afd2dada4cb7e983'
     }).then((value) {
       print(value.data);
       scienceList = value.data['articles'];
@@ -166,7 +165,7 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.getData(url: 'v2/top-headlines/', queries: {
       'category': 'sports',
       'language': 'ar',
-      'apiKey': 'a10204d2f1df4e2d9c61a071224b99be'
+      'apiKey': 'fea6b665b7e94b77afd2dada4cb7e983'
     }).then((value) {
       print(value.data);
       sportsList = value.data['articles'];
@@ -184,7 +183,7 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.getData(url: 'v2/top-headlines/', queries: {
       'category': 'technology',
       'language': 'ar',
-      'apiKey': 'a10204d2f1df4e2d9c61a071224b99be'
+      'apiKey': 'fea6b665b7e94b77afd2dada4cb7e983'
     }).then((value) {
       print(value.data);
       technologyList = value.data['articles'];
