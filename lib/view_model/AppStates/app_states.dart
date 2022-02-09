@@ -1,5 +1,6 @@
 abstract class AppStates {}
 class AppInitialState extends AppStates{}
+class ChangeIndexTapBarState extends AppStates{}
 class ChangeBottomNavState extends AppStates{}
 class GetBusinessNewsLoadingState extends AppStates{}
 class GetBusinessNewsSuccessfulState extends AppStates{}
@@ -53,3 +54,13 @@ class GetTechnologyNewsErrorState extends AppStates{
 
   GetTechnologyNewsErrorState(this.error);
 }
+
+class GetSearchNewsLoadingState extends AppStates{}
+class GetSearchNewsSuccessfulState extends AppStates{}
+class GetSearchNewsErrorState extends AppStates{
+  final String error;
+
+  GetSearchNewsErrorState(this.error);
+}
+
+class ChangeSearchState extends AppStates{}

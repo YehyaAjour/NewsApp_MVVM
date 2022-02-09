@@ -8,6 +8,8 @@ import 'package:newsapp/view_model/AppCubit/app_cubit.dart';
 import 'package:newsapp/view_model/AppStates/app_states.dart';
 import 'package:newsapp/view_model/bloc_observer.dart';
 
+import 'view/search/search_screen.dart';
+
 //baseurl="https://newsapi.org/"
 //methodUrl='v2/top-headlines?'
 //queries='country=us&apiKey=d4026a9324cf4415a67a049318928dad'

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class slideright extends PageRouteBuilder {
+class Slideright extends PageRouteBuilder {
   final Page;
 
-  slideright({this.Page})
+  Slideright({this.Page})
       : super(
       pageBuilder: (context, animation, animationtwo) => Page,
       transitionsBuilder: (context, animation, animationtwo, child) {
